@@ -1,1 +1,2 @@
-i think i did smth wrong it didnt update the main files
+wooo yay it works now
+nathan this took me 3 days 
