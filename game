@@ -1,0 +1,96 @@
+import pygame
+import time
+from time import sleep
+
+pygame.init()
+screen = pygame.display.set_mode((1080, 720))
+clock = pygame.time.Clock()
+
+
+
+# images ---------------------------------------------------
+
+left_button = pygame.image.load ("left button.png").convert_alpha()
+right_button = pygame.image.load ("right button.png").convert_alpha()
+
+light_left_button = pygame.image.load ("light left button.png").convert_alpha()
+light_right_button = pygame.image.load ("light right button.png").convert_alpha()
+
+big_left_button = pygame.image.load ("big left button.png").convert_alpha()
+big_right_button = pygame.image.load ("big right button.png").convert_alpha()
+
+epp_shark_card = pygame.image.load ("epp shark card.png").convert_alpha()
+big_epp_shark_card = pygame.image.load ("big epp shark card.png").convert_alpha()
+
+# images end ------------------------------------------------
+
+# classes ---------------------------------------------------
+
+class Button:
+    def __init__(self, x, y, image, scale):
+        width = image.get_width()
+        height = image.get_height()
+        self.image = pygame.transform.scale(image, (int(width*scale), int(height*scale)))
+        self.image = image
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
+        self.clicked = False
+
+    def draw(self):
+
+        action = False
+
+        mouse_pos = pygame.mouse.get_pos()
+
+        if self.rect.collidepoint(mouse_pos):
+            if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
+                self.clicked = True
+                action = True
+
+        if pygame.mouse.get_pressed()[0] == 0:
+            self.clicked = False
+
+        screen.blit(self.image, (self.rect.x, self.rect.y))
+        return action
+
+# classes end  ----------------------------------------------
+
+# assign interactions ---------------------------------------
+
+left_button_interact = Button(80, 360, left_button, 1)
+right_button_interact = Button(910, 360, right_button, 1)
+epp_shark_card_interact = Button(430, 260, epp_shark_card, 1)
+
+# end assign interactions -----------------------------------
+
+
+running = True
+
+
+while running:
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.fill((87, 132, 191))
+         
+    if left_button_interact.draw() == True:
+        screen.blit(big_left_button, (62, 340))
+
+    if right_button_interact.draw() == True:
+        screen.blit (big_right_button, (910, 340))
+
+    if epp_shark_card_interact.draw():
+        screen.blit (big_epp_shark_card, (425, 255))
+
+
+    pygame.draw.rect(screen, (255, 255, 255), left_button_interact, 2)
+    pygame.draw.rect(screen, (255, 255, 255), right_button_interact, 2)
+
+
+    pygame.display.flip()
+
+    clock.tick(60)
+
+pygame.quit()

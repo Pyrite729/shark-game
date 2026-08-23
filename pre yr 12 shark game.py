@@ -1,4 +1,6 @@
 import pygame
+import time
+from time import sleep
 
 pygame.init()
 screen = pygame.display.set_mode((1080, 720))
@@ -15,18 +17,18 @@ light_right_button = pygame.image.load("light right button.png").convert_alpha()
 big_left_button = pygame.image.load("big left button.png").convert_alpha()
 big_right_button = pygame.image.load("big right button.png").convert_alpha()
 
-circle = pygame.image.load("circle.png").convert_alpha()
+## circle = pygame.image.load("circle.png").convert_alpha()
 
 sign = pygame.image.load("sighn.png").convert_alpha()
 sighn_eyes = pygame.image.load("sighn eyes.png").convert_alpha()
 
-epp_shark = pygame.image.load("epp shark2.png").convert_alpha()
+epp_shark = pygame.image.load("epp shark.png").convert_alpha()
 
 empty_card = pygame.image.load("card.png").convert_alpha()
 
-epp_shark_card = pygame.image.load("epp shark card 2.png").convert_alpha()
-big_epp_shark_card = pygame.image.load("big epp shark card 2.png").convert_alpha()
-big_light_epp_shark_card = pygame.image.load("big light epp shark card 2.png").convert_alpha()
+epp_shark_card = pygame.image.load("epp shark card.png").convert_alpha()
+big_epp_shark_card = pygame.image.load("big epp shark card.png").convert_alpha()
+big_light_epp_shark_card = pygame.image.load("big light epp shark card.png").convert_alpha()
 
 
 left_button_rect = left_button.get_rect(topleft=(80, 360))
@@ -76,9 +78,10 @@ while running:
         if sign_rect.collidepoint(pygame.mouse.get_pos()):
             screen.blit(sighn_eyes, (268, 20))
         if epp_shark_card_rect.collidepoint(pygame.mouse.get_pos()):
-            screen.blit(big_epp_shark_card, (425, 255))
-##            screen.blit(spinning_shark, (350, 210))
+            screen.blit(big_epp_shark_card, (425, 255))            
 
+
+##            screen.blit(spinning_shark, (350, 210))
 
  ##   pygame.draw.rect(screen, (255, 255, 255), left_button_rect, 2)
  ##   pygame.draw.rect(screen, (255, 255, 255), right_button_rect, 2)
