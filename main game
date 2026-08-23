@@ -1,0 +1,34 @@
+import pygame
+import spritesheet
+
+pygame.init()
+screen = pygame.display.set_mode((1080, 720))
+running = True
+
+sprite_sheet_image = pygame.image.load("walk cycle.png").convert_alpha()
+sprite_sheet = spritesheet.SpriteSheet(sprite_sheet_image)
+
+black = (0, 0, 0)
+
+
+frame0 = sprite_sheet.get_image(0, 128, 128, black)
+frame1 = sprite_sheet.get_image(1, 128, 128, black)
+frame2 = sprite_sheet.get_image( 2, 128, 128, black)
+
+while running:
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+
+    screen.fill((87, 132, 191))
+
+    screen.blit(frame0, (0, 0))
+    screen.blit(frame1, (100, 0))
+    screen.blit(frame1, (300, 0))
+
+    pygame.display.update()
+
+
+pygame.quit()

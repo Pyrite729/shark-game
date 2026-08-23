@@ -81,8 +81,11 @@ while running:
     if right_button_interact.draw() == True:
         screen.blit (big_right_button, (910, 340))
 
-    if epp_shark_card_interact.draw():
+    if epp_shark_card_interact.draw() == True:
         screen.blit (big_epp_shark_card, (425, 255))
+        sleep (2)
+        screen.fill((255, 255, 255))
+                    
 
 
     pygame.draw.rect(screen, (255, 255, 255), left_button_interact, 2)
