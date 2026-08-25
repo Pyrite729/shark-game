@@ -7,9 +7,7 @@ screen = pygame.display.set_mode((1080, 720))
 clock = pygame.time.Clock()
 
 
-
 # images ---------------------------------------------------
-
 left_button = pygame.image.load ("left button.png").convert_alpha()
 right_button = pygame.image.load ("right button.png").convert_alpha()
 
@@ -21,11 +19,10 @@ big_right_button = pygame.image.load ("big right button.png").convert_alpha()
 
 epp_shark_card = pygame.image.load ("epp shark card.png").convert_alpha()
 big_epp_shark_card = pygame.image.load ("big epp shark card.png").convert_alpha()
-
 # images end ------------------------------------------------
 
-# classes ---------------------------------------------------
 
+# classes ---------------------------------------------------
 class Button:
     def __init__(self, x, y, image, scale):
         width = image.get_width()
@@ -52,21 +49,19 @@ class Button:
 
         screen.blit(self.image, (self.rect.x, self.rect.y))
         return action
-
 # classes end  ----------------------------------------------
 
-# assign interactions ---------------------------------------
 
+
+# assign interactions ---------------------------------------
 left_button_interact = Button(80, 360, left_button, 1)
 right_button_interact = Button(910, 360, right_button, 1)
 epp_shark_card_interact = Button(430, 260, epp_shark_card, 1)
-
 # end assign interactions -----------------------------------
 
 
+# game loop -------------------------------------------------
 running = True
-
-
 while running:
 
     for event in pygame.event.get():
@@ -97,3 +92,14 @@ while running:
     clock.tick(60)
 
 pygame.quit()
+# end game loop ---------------------------------------------
+
+
+
+
+
+
+
+
+
+
