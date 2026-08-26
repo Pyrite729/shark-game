@@ -1,0 +1,12 @@
+easy, medium and hard mode:
+    if 'easy':
+        obsticle_spawn_cooldown = 1500
+    elif 'med':
+        obsticle_spawn_cooldown = 1000
+    elif 'hard':
+        obsticle_spawn_cooldown = 500
+
+harder progression:
+if points >= 10:
+    obsticle_spawn_cooldown = obsticle_spawn_cooldown + 250
+    scroll_speed = scroll_speed + 2
