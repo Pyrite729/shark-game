@@ -98,16 +98,23 @@ class Obsticles:
 
 def spawn_obsticle():
     rocks_per_lane = [0, 0, 0]
-    for obsticle in obsticles:
-        rocks_per_lane[obsticle.lane] += 1
     available_lanes = []
+
     for lane in range(3):
-        if rocks_per_lane[lane] < 2:
+        can_spawn = True
+
+        for obsticle in obsticles:
+            rocks_per_lane[obsticle.lane] += 1
+            if obsticle.lane == lane:
+                if obsticle.rect.y < 250:
+                    can_spawn = False
+
+        if can_spawn:
             available_lanes.append(lane)
+
     if len(available_lanes) > 0:
         lane = random.choice(available_lanes)
         obsticles.append(Obsticles(lane))
-
 
 # obsticles end ---------------------------------------------------------
 
