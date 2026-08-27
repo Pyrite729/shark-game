@@ -18,6 +18,8 @@ FPS = 30
 scroll_speed = 4
 black = (0, 0, 0)
 lane = random.randint(0,2)
+player_lane = 2
+lane_coords = (476, 592)
 obsticle_spawn_time = pygame.time.get_ticks()
 obsticle_spawning_cooldown = random.randint(500, 1500)
 # end of init stuff ------------------------------------------------
@@ -37,7 +39,7 @@ easy_button = pygame.image.load("easy button.png").convert_alpha()
 light_easy_button = pygame.image.load("light easy button.png").convert_alpha()
 
 medium_button = pygame.image.load("medium button.png").convert_alpha()
-light_start_button = pygame.image.load("light start button.png").convert_alpha()
+light_medium_button = pygame.image.load("light start button.png").convert_alpha()
 
 hard_button = pygame.image.load("hard button.png").convert_alpha()
 light_hard_button = pygame.image.load("light hard button.png").convert_alpha()
@@ -58,8 +60,8 @@ epp_shark_card = pygame.image.load ("epp shark card.png").convert_alpha()
 
 background_w = background.get_width()
 background_h = background.get_height()
-
 # image load end -------------------------------------------------------
+
 
 # button interacts -----------------------------------------------------
 easy_button_interact = Button(290, 580, easy_button, 1)
@@ -76,6 +78,7 @@ tiles = math.ceil(screen_h / background_h) +1
 print (tiles)
 # scroll end -----------------------------------------------------------
 
+
 # animation ------------------------------------------------------------
 animation_list = []
 animation_steps = 8
@@ -83,7 +86,7 @@ last_update = pygame.time.get_ticks()
 animation_cooldown = 150
 frame = 0
 for x in range(animation_steps):
-    animation_list.append(sprite_sheet.get_image(x, 128, 128, black))
+    animation_list.append(sprite_sheet.get_image(x, 60, 128, black))
 # animation end ---------------------------------------------------------
 
 
@@ -141,6 +144,25 @@ def spawn_obsticle():
 while running:
 
     for event in pygame.event.get():
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                player_lane = player_lane - 1
+                if player_lane < 1:
+                    player_lane = 1
+
+            if event.key == pygame.K_RIGHT:
+                player_lane = player_lane + 1
+                if player_lane > 3:
+                    player_lane = 3
+
+        if player_lane == 1:
+            lane_coords = (290, 592)
+        elif player_lane == 2:
+            lane_coords = (515, 592)
+        elif player_lane == 3:
+            lane_coords = (735, 592)
+
         if event.type == pygame.QUIT:
             running = False
 
@@ -148,6 +170,7 @@ while running:
 
     screen.fill((87, 132, 191))
 
+    screen.blit(epp_shark_card, (430, 260))
     screen.blit(sign, (268, 20))
          
     if left_button_interact.draw(screen) == True:
@@ -200,7 +223,7 @@ while running:
             obsticle.update()
         ##  if player.shark_rect.colliderect(obsticle.rect):
         ##      pygame.draw.rect(screen, (255, 0, 0), player.shark_rect, 2)
-        screen.blit(animation_list[frame], (476, 592))
+        screen.blit(animation_list[frame], lane_coords)
 
 ##    pygame.draw.rect(screen, (255, 255, 255), easy_button_interact, 2)
 
