@@ -1,0 +1,8 @@
+FPS*scroll speed = x pixels/sec
+
+easy = 60 p/s
+med = 120 p/s
+hard = 180 p/s
+
+
+make min rock distance 250

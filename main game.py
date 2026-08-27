@@ -20,8 +20,16 @@ black = (0, 0, 0)
 lane = random.randint(0,2)
 player_lane = 2
 lane_coords = (476, 592)
+player_x = 515
+target_x = 515
+player_speed = 10
+health = 5
 obsticle_spawn_time = pygame.time.get_ticks()
 obsticle_spawning_cooldown = random.randint(500, 1500)
+rock_speed = scroll_speed * FPS
+lane_1_x = 290
+lane_2_x = 512
+lane_3_x = 734
 # end of init stuff ------------------------------------------------
 
 
@@ -90,6 +98,18 @@ for x in range(animation_steps):
 # animation end ---------------------------------------------------------
 
 
+# player ----------------------------------------------------------------
+class Shark_sprite:
+    def __init__(self):
+        self.shark_rect = pygame.Rect(0, 0, 60, 60)
+        
+
+    def update(self, player_x):
+        self.shark_rect.topleft = (player_x, 592)
+
+
+player = Shark_sprite()
+
 # obsticles -------------------------------------------------------------
 obsticles = []
 rock_images = [rock_1, rock_2, rock_3]
@@ -122,7 +142,7 @@ def spawn_obsticle():
     available_lanes = []
 
     for lane in range(3):
-        can_spawn = True
+        can_spawn = True  
 
         for obsticle in obsticles:
             rocks_per_lane[obsticle.lane] += 1
@@ -147,14 +167,25 @@ while running:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                player_lane = player_lane - 1
-                if player_lane < 1:
-                    player_lane = 1
+                if player_lane == 2:
+                    target_x = (lane_2_x) - 222
+                    player_lane = player_lane - 1
+                elif player_lane == 3:
+                    target_x = (lane_3_x) - 222
+                    player_lane = player_lane - 1
+                elif player_lane == 1:
+                    target_x = lane_1_x
+
 
             if event.key == pygame.K_RIGHT:
-                player_lane = player_lane + 1
-                if player_lane > 3:
-                    player_lane = 3
+                if player_lane == 2:
+                    target_x = (lane_2_x) + 222
+                    player_lane = player_lane + 1
+                elif player_lane == 1:
+                    target_x = (lane_1_x) + 222
+                    player_lane = player_lane + 1
+                elif player_lane == 3:
+                    target_x = lane_3_x
 
         if player_lane == 1:
             lane_coords = (290, 592)
@@ -215,17 +246,28 @@ while running:
             obsticle_spawn_time = current_time
             obsticle_spawning_cooldown = random.randint(500, 1500)
 
+        if player_x < target_x:
+            player_x += player_speed
+        if player_x > target_x:
+            player_x -= player_speed
+
+
 ##        if len(obsticles) == 0:
 ##            obsticles.append(Obsticles())
 
         for obsticle in obsticles:
             obsticle.draw(screen)
             obsticle.update()
-        ##  if player.shark_rect.colliderect(obsticle.rect):
-        ##      pygame.draw.rect(screen, (255, 0, 0), player.shark_rect, 2)
-        screen.blit(animation_list[frame], lane_coords)
+            if player.shark_rect.colliderect(obsticle.rect):
+                health = health - 1
+                print ("health: "+ str(health))
+                pygame.draw.rect(screen, (255, 0, 0), player.shark_rect, 2)
 
-##    pygame.draw.rect(screen, (255, 255, 255), easy_button_interact, 2)
+        pygame.draw.rect(screen, (255, 255, 255), player.shark_rect, 2)
+        player.update(player_x)
+        screen.blit(animation_list[frame], (player_x, 592))
+
+
 
     pygame.display.update()
 

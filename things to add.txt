@@ -1,12 +1,46 @@
-easy, medium and hard mode:
-    if 'easy':
-        obsticle_spawn_cooldown = 1500
-    elif 'med':
-        obsticle_spawn_cooldown = 1000
-    elif 'hard':
-        obsticle_spawn_cooldown = 500
-
 harder progression:
 if points >= 10:
-    obsticle_spawn_cooldown = obsticle_spawn_cooldown + 250
+    obsticle_spawn_cooldown = obsticle_spawn_cooldown - 25
     scroll_speed = scroll_speed + 2
+
+player movement:
+
+so target_x is where to go and player_x is where is. 
+need player_speed. 
+hardcode a lane value with equal increments (redo background ~~scream~~)
+^not that bad, was 290, 515, 735 so gaps were 225 and 220
+    changed to 290, 512, 734 with 222 gap between 
+
+should player_~speed be the same as scroll speed so it changes through difficulty
+prob not cause thatll upset me and the graphics and will reduce the need for skill
+
+                player_lane = player_lane - 1
+                if player_lane < 1:
+                    player_lane = 1
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                target_x == (lane_2_x) - 222
+                if target_x < (lane_1_x):
+                    target_x = (lane_1_x)
+
+
+so:
+
+if event.type == LEFT ARROW:
+    target_x == (mid lane coords) - value
+    if target_x < (left lane coords):
+        target_x = (left lane coords)
+
+if player_x < target_x:
+    player_x += player_speed
+
+elif ^that in reverse
+
+
+
+
+screen.blit(animation_list[frmae], (player_x, (whatever y coords used ig)))
+
+
+# smovement 
